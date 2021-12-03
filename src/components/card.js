@@ -58,20 +58,35 @@ const cardAppender = (selector) => {
   //
   const inject = document.querySelector(selector);
 
-  axios.get(`http://localhost:5000/api/articles`)
-    .then(resp => {
-      resp.data.articles.bootstrap.forEach(article => {
-        inject.appendChild(Card(article));
-      })
-    .then(boom => {
-      boom.data.articles.javascript.forEach(yes => {
-        inject.appendChild(Card(yes));
-      })
-    })
-    })
-    .catch(err => {
-      console.log(err);
-    })
+  const typesOfScript = ['javascript',
+  'bootstrap',
+  'technology',
+  'jquery',
+  'node.js'];
+  typesOfScript.forEach(types => {
+  axios.get(`http://localhost:5000/api/articles/${types}`)
+  .then(data => {
+    inject.appendChild(Card(data.data))
+  })
+  .catch(error => console.log(error))
+})
+
+
+
+
+
+  // axios.get(`http://localhost:5000/api/articles`)
+  // .then(resp => {
+  //   console.log(resp.data.articles)
+  //   const javascript = resp.data.articles.javascript;
+  //   javascript.forEach((props => {
+  //     inject.appendChild(Card(props));
+  //   })
+  //   )
+  // })
+  //   .catch(err => {
+  //     console.log(err);
+  //   })
   
 }
 
