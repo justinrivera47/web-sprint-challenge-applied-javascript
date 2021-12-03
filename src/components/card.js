@@ -36,7 +36,7 @@ const Card = (article) => {
   //adding classnames 
   cardContainer.classList.add('card');
   headline.classList.add('headline');
-  authorName.classList.add('auother');
+  authorName.classList.add('author');
   imgContainer.classList.add('img-container');
   //img source
   img.src = article.authorPhoto
@@ -56,16 +56,23 @@ const cardAppender = (selector) => {
   // Create a card from each and every article object in the response, using the Card component.
   // Append each card to the element in the DOM that matches the selector passed to the function.
   //
+  const inject = document.querySelector(selector);
 
   axios.get(`http://localhost:5000/api/articles`)
-  .then(resp => {
-   console.log(resp.data.articles);
-  })
-  .catch(err => {
-    console.log(err);
-  })
-  const inject = document.querySelector(selector);
-  inject.appendChild(Card());
+    .then(resp => {
+      resp.data.articles.bootstrap.forEach(article => {
+        inject.appendChild(Card(article));
+      })
+    .then(boom => {
+      boom.data.articles.javascript.forEach(yes => {
+        inject.appendChild(Card(yes));
+      })
+    })
+    })
+    .catch(err => {
+      console.log(err);
+    })
+  
 }
 
 export { Card, cardAppender }

@@ -41,7 +41,7 @@ const headerAppender = (selector) => {
   //
 
   const headerContainer = document.querySelector(selector);
-  headerContainer.appendChild(Header('Justin Rivera', '12/3/21', '75 degrees'));
+  headerContainer.appendChild(Header('Rivera Times', '12/3/21', '75 degrees'));
 }
 
 export { Header, headerAppender }

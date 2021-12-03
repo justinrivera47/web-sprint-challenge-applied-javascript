@@ -1,5 +1,7 @@
 import axios from "axios";
 
+
+
 const Tabs = (topics) => {
   // TASK 3
   // ---------------------
@@ -15,25 +17,16 @@ const Tabs = (topics) => {
   //   <div class="tab">technology</div>
   // </div>
   //
-  const topicsArray = ['javascript', 'bootstrap', 'technology'];
   //creating mark up
   const containerTopics = document.createElement('div');
-  const java = document.createElement('div');
-  const bootstrap = document.createElement('div');
-  const technology = document.createElement('div');
+  const tab = document.createElement('div');
   //adding class names
   containerTopics.classList.add('topics');
-  java.classList.add('tab');
-  bootstrap.classList.add('tab');
-  technology.classList.add('tab');
+  tab.classList.add('tab');
   //adding textContent
-  java.textContent = topics.javascript;
-  bootstrap.textContent = topics.bootstrap;
-  technology.textContent = topics.technology;
+  tab.textContent = topics;
   //appending childrend
-  containerTopics.appendChild(java);
-  containerTopics.appendChild(bootstrap);
-  containerTopics.appendChild(technology);
+  containerTopics.appendChild(tab);
 
   return containerTopics;
 }
@@ -46,14 +39,19 @@ const tabsAppender = (selector) => {
   // Find the array of topics inside the response, and create the tabs using the Tabs component.
   // Append the tabs to the element in the DOM that matches the selector passed to the function.
   //
+  const tabHolder = document.querySelector(selector);
+
   axios.get(`http://localhost:5000/api/topics`)
   .then(resp => {
-    Tabs(resp.data.topics);
-    console.log(Tabs)
+    resp.data.topics.forEach((props => {
+      tabHolder.appendChild(Tabs(props));
+    }))
   })
-
-  const tabHolder = document.querySelector(selector);
-  tabHolder.appendChild(Tabs('javascript'));
+  .catch((err) => {
+    console.log(err);
+  })
+  
+ 
 }
 
 export { Tabs, tabsAppender }
