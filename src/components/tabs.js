@@ -13,6 +13,27 @@ const Tabs = (topics) => {
   //   <div class="tab">technology</div>
   // </div>
   //
+  const topicsArray = ['javascript', 'bootstrap', 'technology'];
+  //creating mark up
+  const containerTopics = document.createElement('div');
+  const java = document.createElement('div');
+  const bootstrap = document.createElement('div');
+  const technology = document.createElement('div');
+  //adding class names
+  containerTopics.classList.add('topics');
+  java.classList.add('tab');
+  bootstrap.classList.add('tab');
+  technology.classList.add('tab');
+  //adding textContent
+  java.textContent = topicsArray[0];
+  bootstrap.textContent = topicsArray[1];
+  technology.textContent = topicsArray[2];
+  //appending childrend
+  containerTopics.appendChild(java);
+  containerTopics.appendChild(bootstrap);
+  containerTopics.appendChild(technology);
+
+  return containerTopics;
 }
 
 const tabsAppender = (selector) => {
@@ -23,6 +44,8 @@ const tabsAppender = (selector) => {
   // Find the array of topics inside the response, and create the tabs using the Tabs component.
   // Append the tabs to the element in the DOM that matches the selector passed to the function.
   //
+  const tabHolder = document.querySelector(selector);
+  tabHolder.appendChild(Tabs('javascript'));
 }
 
 export { Tabs, tabsAppender }
