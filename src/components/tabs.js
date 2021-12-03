@@ -43,6 +43,7 @@ const tabsAppender = (selector) => {
 
   axios.get(`http://localhost:5000/api/topics`)
   .then(resp => {
+    // console.log(resp.data.topics);
     resp.data.topics.forEach((props => {
       tabHolder.appendChild(Tabs(props));
     }))

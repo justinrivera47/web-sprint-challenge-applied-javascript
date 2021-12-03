@@ -29,7 +29,7 @@ const Card = (article) => {
   const spanAuthorName = document.createElement('span');
   //appending children
   cardContainer.appendChild(headline);
-  headline.appendChild(authorName);
+  cardContainer.appendChild(authorName);
   authorName.appendChild(imgContainer);
   imgContainer.appendChild(img);
   authorName.appendChild(spanAuthorName);
@@ -58,35 +58,35 @@ const cardAppender = (selector) => {
   //
   const inject = document.querySelector(selector);
 
-  const typesOfScript = ['javascript',
-  'bootstrap',
-  'technology',
-  'jquery',
-  'node.js'];
-  typesOfScript.forEach(types => {
-  axios.get(`http://localhost:5000/api/articles/${types}`)
-  .then(data => {
-    inject.appendChild(Card(data.data))
+//   const typesOfScript = ['javascript',
+//   'bootstrap',
+//   'technology',
+//   'jquery',
+//   'node.js'];
+//   typesOfScript.forEach(types => {
+//   axios.get(`http://localhost:5000/api/articles/${types}`)
+//   .then(data => {
+//     inject.appendChild(Card(data.data.articles))
+//   })
+//   .catch(error => console.log(error))
+// })
+
+
+
+
+
+  axios.get(`http://localhost:5000/api/articles`)
+  .then(resp => {
+    const javascript = resp.data.articles;
+    javascript.javascript.forEach((props => {
+      // console.log(props);
+      inject.appendChild(Card(props));
+    })
+    )
   })
-  .catch(error => console.log(error))
-})
-
-
-
-
-
-  // axios.get(`http://localhost:5000/api/articles`)
-  // .then(resp => {
-  //   console.log(resp.data.articles)
-  //   const javascript = resp.data.articles.javascript;
-  //   javascript.forEach((props => {
-  //     inject.appendChild(Card(props));
-  //   })
-  //   )
-  // })
-  //   .catch(err => {
-  //     console.log(err);
-  //   })
+    .catch(err => {
+      console.log(err);
+    })
   
 }
 
